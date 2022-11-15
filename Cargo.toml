@@ -1,0 +1,15 @@
+[package]
+name = "hddmond"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.66"
+log = "0.4.17"
+simple_logger = "4.0.0"
+smartctl-wrapper = { version = "0.0.1", git = "https://github.com/AadamZ5/smartctl-wrapper-rs" }
+tokio = { version = "1.21.2", features = ["full"] }
+tokio-stream = "0.1.11"
+udev = "0.7.0"
