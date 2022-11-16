@@ -7,9 +7,12 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0.66"
+deno_core = "0.159.0"
 log = "0.4.17"
 simple_logger = "4.0.0"
 smartctl-wrapper = { version = "0.0.1", git = "https://github.com/AadamZ5/smartctl-wrapper-rs" }
 tokio = { version = "1.21.2", features = ["full"] }
 tokio-stream = "0.1.11"
+
+[target.x86_64-unknown-linux-gnu.dependencies]
 udev = "0.7.0"

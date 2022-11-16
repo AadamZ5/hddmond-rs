@@ -1,10 +1,14 @@
-mod scanner;
+mod scanners;
 
 #[macro_use]
 extern crate log;
 
 use anyhow::Error;
-use scanner::{DeviceMonitor, UdevMonitor};
+use scanners::{
+    scanner::{DeviceMonitor, ScanEventType},
+    smartctl_scanner::SmartCtlMonitor,
+    udev_scanner::UdevMonitor,
+};
 use simple_logger::SimpleLogger;
 use tokio_stream::StreamExt;
 
@@ -13,7 +17,7 @@ async fn main() -> Result<(), Error> {
     info!("Starting...");
 
     SimpleLogger::new()
-        .with_level(log::LevelFilter::Debug)
+        .with_level(log::LevelFilter::Trace)
         .init()?;
 
     let monitor = UdevMonitor::new()?;
@@ -23,15 +27,14 @@ async fn main() -> Result<(), Error> {
     let mut stream = monitor.watch_events()?;
 
     while let Some(event) = stream.next().await {
-        debug!("Got event: {:?}", event);
         match event {
-            scanner::ScanEvent::DeviceFound(device) => {
+            ScanEventType::DeviceFound(device) => {
                 info!("Found device: {}", device);
             }
-            scanner::ScanEvent::DeviceLost(device) => {
+            ScanEventType::DeviceLost(device) => {
                 info!("Lost device: {}", device);
             }
-            scanner::ScanEvent::Unknown(device) => {
+            ScanEventType::Unknown(device) => {
                 info!("Unknown action for device: {}", device);
             }
         }
