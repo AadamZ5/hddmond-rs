@@ -2,7 +2,7 @@
 
 # hddmond
 
-Back at my first job, I tried to create a bulk-hdd testing software to better support our testing efforts and expidite the process.
+Back at my first job, I tried to create a bulk-hdd testing software to better support our testing efforts and expedite the process.
 
 Now since `smartmontools` can output in JSON, I feel much more inclined to take another go at this, writing in Rust this time.
 
